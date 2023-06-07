@@ -18,39 +18,39 @@ class MainActivity : AppCompatActivity() {
     private var seats = (
             "/U___S" +
                     "/_____" +
-                    "/AA_AA" +
-                    "/UA_AR" +
-                    "/AA_AA" +
-                    "/RU_AA" +
-                    "/AA_AR" +
-                    "/AU_AA" +
-                    "/AA_AA" +
-                    "/AA_AA" +
-                    "/RU_AA" +
-                    "/AA_AR" +
-                    "/AU_AA" +
-                    "/AA_AA" +
-                    "/AAAAA"
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RR_RR" +
+                    "/RRRRR"
 
             )
 
 
     private var title = listOf(
-        "/", "I1", "", "", "", "E5",
+        "/", "1", "", "", "", "E5",
         "/", "", "", "", "", "",
-        "/", "A1", "A2", "", "A3", "A4",
-        "/", "B1", "B2", "", "B3", "B4",
-        "/", "C1", "C2", "", "C3", "C4",
-        "/", "D1", "D2", "", "D3", "D4",
-        "/", "E1", "E2", "", "E3", "E4",
-        "/", "F1", "F2", "", "F3", "F4",
-        "/", "G1", "G2", "", "G3", "G4",
-        "/", "C1", "C2", "", "C3", "C4",
-        "/", "D1", "D2", "", "D3", "D4",
-        "/", "E1", "E2", "", "E3", "E4",
-        "/", "F1", "F2", "", "F3", "F4",
-        "/", "G1", "G2", "", "G3", "G4",
-        "/", "H1", "H2", "H3", "H4", "H5"
+        "/", "2", "3", "", "4", "5",
+        "/", "6", "7", "", "8", "9",
+        "/", "10", "11", "", "12", "13",
+        "/", "14", "15", "", "16", "17",
+        "/", "18", "19", "", "20", "21",
+        "/", "22", "23", "", "24", "25",
+        "/", "26", "27", "", "28", "29",
+        "/", "30", "31", "", "32", "33",
+        "/", "34", "35", "", "36", "37",
+        "/", "38", "39", "", "40", "41",
+        "/", "42", "43", "", "44", "45",
+        "/", "46", "47", "", "48", "49",
+        "/", "50", "51", "52", "53", "54"
     )
 
 
@@ -59,6 +59,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         seatBookView = findViewById(R.id.layoutSeat)
+
+        val positionsAvailable = listOf(4, 10, 25)
+         val bookedSeats = listOf(1, 34, 21)
+        seats = replaceLettersAtPositions(seats, positionsAvailable, 'A')
+        seats = replaceLettersAtPositions(seats, bookedSeats, 'U')
+
+
         seatBookView.setSeatsLayoutString(seats)
             .isCustomTitle(true)
             .setCustomTitle(title)
@@ -80,9 +87,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAvailableSeatClick(selectedIdList: List<Int>, view: View) {
 
+
             }
 
             override fun onBookedSeatClick(view: View) {
+
 
             }
 
@@ -111,5 +120,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun replaceLettersAtPositions(seats: String, positions: List<Int>, replacement: Char): String {
+        val charArray = seats.toCharArray()
+        for (position in positions) {
+            var count = 0
+            for (i in charArray.indices) {
+                if (charArray[i] != '_' && charArray[i] != '/' && charArray[i] != '+'  && charArray[i] != 'S') {
+                    count++
+                    if (count == position) {
+                        charArray[i] = replacement
+                        break
+                    }
+                }
+            }
+        }
+        return String(charArray)
+    }
 
 }
