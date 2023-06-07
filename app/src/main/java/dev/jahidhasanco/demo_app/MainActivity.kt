@@ -18,19 +18,19 @@ class MainActivity : AppCompatActivity() {
     private var seats = (
             "/U___S" +
                     "/_____" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RR_RR" +
-                    "/RRRRR"
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UU_UU" +
+                    "/UUUUU"
 
             )
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         seatBookView = findViewById(R.id.layoutSeat)
 
-        val positionsAvailable = listOf(4, 10, 25)
+        val positionsAvailable = listOf(4, 10, 25,3,9)
          val bookedSeats = listOf(1, 34, 21)
         seats = replaceLettersAtPositions(seats, positionsAvailable, 'A')
         seats = replaceLettersAtPositions(seats, bookedSeats, 'U')
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         //ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content
 
 
+        seatBookView.setSelectSeatLimit(positionsAvailable.size)
         seatBookView.show()
 
 
@@ -86,11 +87,16 @@ class MainActivity : AppCompatActivity() {
         seatBookView.setSeatClickListener(object : SeatClickListener {
 
             override fun onAvailableSeatClick(selectedIdList: List<Int>, view: View) {
+                if (view is TextView) {
+                    val clickedText = view.text.toString()
+                    Toast.makeText(this@MainActivity, "You have clicked seat: $clickedText are you sure you want to book?", Toast.LENGTH_SHORT).show()
+                }
 
 
             }
 
             override fun onBookedSeatClick(view: View) {
+                Toast.makeText(this@MainActivity, "This seat is booked", Toast.LENGTH_SHORT).show()
 
 
             }
